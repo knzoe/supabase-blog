@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/store/store';
 import { deletePost } from '@/lib/store/slices/blogSlice';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { BlogPost } from '@/lib/store/slices/blogSlice';
 import { format } from 'date-fns';
@@ -11,8 +11,8 @@ import Link from 'next/link';
 import { useSafeParams } from '@/lib/hooks/useSafeParams';
 import { toast } from 'react-toastify';
 
-export default function PostDetail({ params }: { params: { id: string } }) {
-  const { validatedParams, error: paramError, refresh } = useSafeParams(['id']);
+export default function PostDetail() {
+  const { validatedParams, error: paramError } = useSafeParams(['id']);
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

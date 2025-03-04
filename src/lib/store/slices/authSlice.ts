@@ -43,18 +43,12 @@ export const signOut = createAsyncThunk('auth/signOut', async () => {
   if (error) throw error;
 });
 
-// Helper function for consistent error handling
-const handleAuthError = (error: unknown) => {
-  return error instanceof AuthError 
-    ? error.message 
-    : 'Authentication error';
-};
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User | null>) => {
+    setUser: (state, action: { payload: User | null }) => {
       state.user = action.payload;
       state.error = null;
     },
@@ -72,7 +66,7 @@ export const authSlice = createSlice({
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
+        state.user = action.payload;
       })
       .addCase(signUp.rejected, (state, action) => {
         state.loading = false;
